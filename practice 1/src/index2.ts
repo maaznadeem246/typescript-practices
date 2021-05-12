@@ -4,3 +4,4 @@ function squareOf(n:number){
 
 squareOf(4);
 squareOf(5);
+
