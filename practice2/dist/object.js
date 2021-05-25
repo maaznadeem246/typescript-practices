@@ -13,4 +13,5 @@ var user2 = {
     }
 };
 console.log(user.name);
+var ar = [123];
 //# sourceMappingURL=object.js.map

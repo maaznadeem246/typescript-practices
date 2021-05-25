@@ -20,3 +20,5 @@ const user2:User = {
 }
 
 console.log(user.name)
+
+let ar : [number] = [123]
