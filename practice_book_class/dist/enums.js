@@ -38,6 +38,20 @@ var red = Color2.Red;
 var pink = Color2.Pink;
 var a = Color2.Red;
 // let b = Color2.Green //its error
-var c = typeof Color2[0];
+var c = Color2[0];
 console.log(a);
 console.log(c);
+var al = 0 /* English */;
+function flip(f) {
+    console.log(f);
+    return "Fliped it!";
+}
+flip(1 /* Chair */);
+flip(2 /* Cup */);
+flip(12); // this should not be working but it works and its wrong
+function flip2(f) {
+    return "flipped it";
+}
+flip2("Chair" /* Chair */);
+flip2("Cup" /* Cup */);
+// flip2(12)  // using const u will have to provide just string

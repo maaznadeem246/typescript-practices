@@ -43,7 +43,62 @@ let pink = Color2.Pink;
 let a = Color2.Red
 // let b = Color2.Green //its error
 
-let c = typeof Color2[0]
+let c = Color2[0]
 
 console.log(a)
 console.log(c)
+
+
+const enum Language6{
+    English,
+    Spanish,
+    Russian
+}
+
+let al = Language6.English
+
+// let b = Language.tagalog 
+
+
+// let cl = Language6[0]
+
+
+
+const enum Flipable{
+    Burger,
+    Chair, Cup,
+    Skateboard,
+    Table,
+}
+
+
+
+function flip(f: Flipable){
+    console.log(f)
+    return "Fliped it!"
+}
+
+
+flip(Flipable.Chair)
+flip(Flipable.Cup)
+flip(12) // this should not be working but it works and its wrong
+
+
+const enum Flipable2{
+    Burger = "Burger",
+    Chair = "Chair", 
+    Cup = "Cup",
+    Skateboard = "Skateboard",
+    Table = "Table",
+}
+
+function flip2(f: Flipable2){
+    return "flipped it"
+}
+
+
+flip2(Flipable2.Chair)
+flip2(Flipable2.Cup)
+// flip2(12)  // using const u will have to provide just string
+
+
