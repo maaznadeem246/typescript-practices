@@ -239,3 +239,105 @@ let names = [
 ]
 
 filter(names, _=>_.firstName.startsWith('b')) 
+
+
+// where can you declare generics 
+
+type Filter1 = {
+    <T>(array: T[], f:(item: T) => boolean): T[]
+}
+
+let filter1 :Filter1 = () => {
+    return [];
+}
+
+
+type Filter2<T> = {
+    (array: T[], f:(item: T) => boolean): T[]
+}
+
+let filter2 :Filter2<number> = () => {
+    return [];
+}
+
+
+
+
+type Filter3 =  <T>(array: T[], f:(item: T) => boolean) => T[]
+
+let filter3 :Filter3 = () => {
+    return [];
+}
+
+
+type Filter4<T> =  (array: T[], f:(item: T) => boolean) => T[]
+
+let filter4 :Filter4<number> = () => {
+    return [];
+}
+
+
+// Generic Type Inference
+
+
+let promise = new Promise<number>(resolve => resolve(45))
+
+promise.then(result => result * 4)
+
+
+
+
+// Generic Type Aliases
+
+type MyEvent<T> ={
+    target: T
+    type:string
+}
+
+type ButtonEvent = MyEvent<HTMLButtonElement>
+
+
+let myEvnt: MyEvent<HTMLButtonElement|null> = {
+    target: document.querySelector("#myButton"),
+    type:'click'
+}
+
+type TimedEvent<T> = {
+    event: MyEvent<T>
+    from:Date
+    to:Date
+}
+
+function triggerEvent<T>(event:MyEvent<T>) :void {
+    //
+}
+
+triggerEvent({
+    target:document.querySelector('#myEvent'),
+    type:'mouseover'
+})
+
+
+// bounded Polymorphism
+
+type TreeNode = {
+    value:string
+}
+
+type LeafNode = TreeNode & {
+    isLeaf:true
+}
+
+type InnerNode = TreeNode & {
+    children:[TreeNode]| [TreeNode, TreeNode]
+}
+
+
+let a: TreeNode = {value:'a'}
+let b: LeafNode = {value:'b', isLeaf:true}
+let c: InnerNode = {value:'c', children:[b]} 
+
+// let a1 = mapNode(a, _=>_.toUpperCase())
+// let b1 = mapNode(b, _=>_.toUpperCase())
+// let c1 = mapNode(c, _=>_.toUpperCase())
+

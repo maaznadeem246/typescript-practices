@@ -179,8 +179,8 @@ var numbers2 = (_a = {},
     _a);
 try {
     for (var numbers2_1 = __values(numbers2), numbers2_1_1 = numbers2_1.next(); !numbers2_1_1.done; numbers2_1_1 = numbers2_1.next()) {
-        var a = numbers2_1_1.value;
-        console.log(a);
+        var a_1 = numbers2_1_1.value;
+        console.log(a_1);
     }
 }
 catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -223,3 +223,35 @@ var names = [
     { firstName: 'xin' }
 ];
 filter(names, function (_) { return _.firstName.startsWith('b'); });
+var filter1 = function () {
+    return [];
+};
+var filter2 = function () {
+    return [];
+};
+var filter3 = function () {
+    return [];
+};
+var filter4 = function () {
+    return [];
+};
+// Generic Type Inference
+var promise = new Promise(function (resolve) { return resolve(45); });
+promise.then(function (result) { return result * 4; });
+var myEvnt = {
+    target: document.querySelector("#myButton"),
+    type: 'click'
+};
+function triggerEvent(event) {
+    //
+}
+triggerEvent({
+    target: document.querySelector('#myEvent'),
+    type: 'mouseover'
+});
+var a = { value: 'a' };
+var b = { value: 'b', isLeaf: true };
+var c = { value: 'c', children: [b] };
+// let a1 = mapNode(a, _=>_.toUpperCase())
+// let b1 = mapNode(b, _=>_.toUpperCase())
+// let c1 = mapNode(c, _=>_.toUpperCase())
