@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __generator = (this && this.__generator) || function (thisArg, body) {
     var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
     return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
@@ -239,19 +250,56 @@ var filter4 = function () {
 var promise = new Promise(function (resolve) { return resolve(45); });
 promise.then(function (result) { return result * 4; });
 var myEvnt = {
-    target: document.querySelector("#myButton"),
+    target: null,
     type: 'click'
 };
 function triggerEvent(event) {
     //
 }
 triggerEvent({
-    target: document.querySelector('#myEvent'),
+    target: null,
     type: 'mouseover'
 });
 var a = { value: 'a' };
 var b = { value: 'b', isLeaf: true };
 var c = { value: 'c', children: [b] };
-// let a1 = mapNode(a, _=>_.toUpperCase())
-// let b1 = mapNode(b, _=>_.toUpperCase())
-// let c1 = mapNode(c, _=>_.toUpperCase())
+function mapNode(node, f) {
+    return __assign(__assign({}, node), { value: f(node.value) });
+}
+var a1 = mapNode(a, function (_) { return _.toUpperCase(); });
+var b1 = mapNode(b, function (_) { return _.toUpperCase(); });
+var c1 = mapNode(c, function (_) { return _.toUpperCase(); });
+console.log(a1);
+console.log(b1);
+console.log(c1);
+function longPerimeter(s) {
+    console.log(s.numberOfSides * s.sideLength);
+    return s;
+}
+var square = { numberOfSides: 4, sideLength: 3 };
+// Using bounded polymorphism to model arity 
+// function call(
+//     f:(...args:unknown[]) => unknown,
+//     ...args:unknown[]
+//     ):unknown{
+//         return f(...args)
+//     }
+function call(f) {
+    var args = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        args[_i - 1] = arguments[_i];
+    }
+    return f.apply(void 0, __spreadArray([], __read(args)));
+}
+function fill(length, value) {
+    return Array.from({ length: length }, function () { return value; });
+}
+console.log(call(fill, 10, 'a'));
+var buttonEvent = {
+    target: null,
+    type: 'string',
+};
+var myEventO3 = {
+    target: document.createElement('div'),
+    type: 'string'
+};

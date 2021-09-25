@@ -298,7 +298,7 @@ type ButtonEvent = MyEvent<HTMLButtonElement>
 
 
 let myEvnt: MyEvent<HTMLButtonElement|null> = {
-    target: document.querySelector("#myButton"),
+    target: null, //document.querySelector("#myButton")
     type:'click'
 }
 
@@ -313,7 +313,8 @@ function triggerEvent<T>(event:MyEvent<T>) :void {
 }
 
 triggerEvent({
-    target:document.querySelector('#myEvent'),
+    
+    target:null , //document.querySelector('#myEvent')
     type:'mouseover'
 })
 
@@ -337,7 +338,133 @@ let a: TreeNode = {value:'a'}
 let b: LeafNode = {value:'b', isLeaf:true}
 let c: InnerNode = {value:'c', children:[b]} 
 
-// let a1 = mapNode(a, _=>_.toUpperCase())
-// let b1 = mapNode(b, _=>_.toUpperCase())
-// let c1 = mapNode(c, _=>_.toUpperCase())
 
+
+function mapNode<T extends TreeNode>(
+    node:T,
+    f:(value:string) => string
+):T{
+    return {
+        ...node,
+        value:f(node.value)
+    }
+}
+
+
+let a1 = mapNode(a, _=>_.toUpperCase())
+let b1 = mapNode(b, _=>_.toUpperCase())
+let c1 = mapNode(c, _=>_.toUpperCase())
+
+console.log(a1)
+console.log(b1)
+console.log(c1)
+
+// console.log(a)
+// console.log(b)
+// console.log(c)
+
+
+// understanding purpose
+
+// function mapNode2(
+//     node:TreeNode,
+//     f:(value:string) => string
+// ):TreeNode{
+//     return {
+//         ...node,
+//         value:f(node.value)
+//     }
+// }
+
+
+// let a12 = mapNode2(a, _=>_.toUpperCase())
+// let b12 = mapNode2(b, _=>_.toUpperCase())
+// let c12 = mapNode2(c, _=>_.toUpperCase())
+
+
+
+
+// console.log(a12)
+// console.log(b12)
+// console.log(c12)
+
+
+// console.log(a)
+// console.log(b)
+// console.log(c)
+
+
+// bounded polymorphism with multiple constraints
+
+type HasSides  = {numberOfSides: number}
+type SidesHaveLenght = {sideLength: number}
+
+
+function longPerimeter<Shape extends HasSides & SidesHaveLenght>(s:Shape):Shape{
+    console.log(s.numberOfSides * s.sideLength)
+    return s
+}
+
+type Square = HasSides & SidesHaveLenght
+let square: Square = {numberOfSides:4, sideLength:3}
+
+
+// Using bounded polymorphism to model arity 
+
+// function call(
+//     f:(...args:unknown[]) => unknown,
+//     ...args:unknown[]
+//     ):unknown{
+//         return f(...args)
+//     }
+
+function call<T extends unknown[],R>(
+    f:(...args:T) => R,
+    ...args:T
+    ):R{
+        return f(...args)
+    }
+
+
+function fill(length:number,value:string):string[]{
+    return Array.from({length},() => value)
+}
+
+console.log(call(fill, 10, 'a'))
+
+
+
+// Generic Type Defaults
+
+type MyEventO<T> = {
+    target:T
+    type:string
+}
+
+let buttonEvent:MyEventO<HTMLButtonElement|null> ={
+    target: null,
+    type:'string',
+}
+
+type MyEventO2<T=HTMLElement> ={
+    target:T,
+    type:string
+}
+
+type MyEventO3<T extends HTMLElement = HTMLElement> = {
+    target:T
+    type:string
+}
+
+let myEventO3 : MyEventO3 ={
+    target: document.createElement('div'),
+    type:'string'
+}
+
+type MyEventO4<
+    Type extends string,
+    Target extends HTMLElement = HTMLElement
+    > ={
+        target: Target,
+        type: Type
+    }
